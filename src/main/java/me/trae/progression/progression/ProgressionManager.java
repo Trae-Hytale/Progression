@@ -10,6 +10,7 @@ import io.github.trae.hytale.framework.utility.UtilMessage;
 import io.github.trae.hytale.framework.utility.enums.ChatColor;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import me.trae.core.client.ClientManager;
 import me.trae.progression.ProgressionPlugin;
 import me.trae.progression.progression.data.ProgressionStatus;
 import me.trae.progression.progression.events.ProgressionGainExperienceEvent;
@@ -30,6 +31,8 @@ public class ProgressionManager implements Manager<ProgressionPlugin>, IProgress
     private final ProgressionIdStorage progressionIdStorage = new ProgressionIdStorage();
 
     private final ProgressionRepository repository;
+
+    private final ClientManager clientManager;
 
     @Override
     public List<ProgressionData> getProgressionDataList() {

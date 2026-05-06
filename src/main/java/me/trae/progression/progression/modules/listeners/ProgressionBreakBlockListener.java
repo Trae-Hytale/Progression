@@ -1,4 +1,4 @@
-package me.trae.progression.progression.modules.systems;
+package me.trae.progression.progression.modules.listeners;
 
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
@@ -11,6 +11,7 @@ import io.github.trae.hytale.framework.system.SystemListener;
 import io.github.trae.hytale.framework.system.annotations.EventSystemHandler;
 import io.github.trae.hytale.framework.system.data.EventSystemContext;
 import io.github.trae.utilities.UtilJava;
+import me.trae.core.client.Client;
 import me.trae.progression.ProgressionPlugin;
 import me.trae.progression.progression.ProgressionData;
 import me.trae.progression.progression.ProgressionManager;
@@ -21,12 +22,12 @@ import java.util.*;
 
 @DependsOn(values = Progression.class)
 @Component
-public class ProgressionBreakBlockSystem implements Module<ProgressionPlugin, ProgressionManager>, SystemListener {
+public class ProgressionBreakBlockListener implements Module<ProgressionPlugin, ProgressionManager>, SystemListener {
 
     private final List<Progression<EventSystemContext<EntityStore, BreakBlockEvent>>> progressionList;
     private final Map<Progression<EventSystemContext<EntityStore, BreakBlockEvent>>, List<ProgressionSkill<?, EventSystemContext<EntityStore, BreakBlockEvent>>>> progressionSkillMap;
 
-    public ProgressionBreakBlockSystem(final List<Progression<EventSystemContext<EntityStore, BreakBlockEvent>>> progressionList, final List<ProgressionSkill<Progression<EventSystemContext<EntityStore, BreakBlockEvent>>, EventSystemContext<EntityStore, BreakBlockEvent>>> progressionSkillList) {
+    public ProgressionBreakBlockListener(final List<Progression<EventSystemContext<EntityStore, BreakBlockEvent>>> progressionList, final List<ProgressionSkill<Progression<EventSystemContext<EntityStore, BreakBlockEvent>>, EventSystemContext<EntityStore, BreakBlockEvent>>> progressionSkillList) {
         this.progressionList = progressionList;
         this.progressionSkillMap = Collections.unmodifiableMap(UtilJava.createMap(new HashMap<>(), map -> {
             for (final ProgressionSkill<?, EventSystemContext<EntityStore, BreakBlockEvent>> progressionSkill : progressionSkillList) {
@@ -46,6 +47,10 @@ public class ProgressionBreakBlockSystem implements Module<ProgressionPlugin, Pr
 
         final PlayerRef playerRef = context.getComponent(PlayerRef.getComponentType());
         if (playerRef == null) {
+            return;
+        }
+
+        if (this.getManager().getClientManager().getClientByPlayer(playerRef).map(Client::isAdministrating).orElse(false)) {
             return;
         }
 
