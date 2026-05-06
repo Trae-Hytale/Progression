@@ -1,0 +1,15 @@
+{
+  "Group": "Trae",
+  "Name": "Progression",
+  "Version": "0.0.1",
+  "Main": "me.trae.progression.ProgressionPlugin",
+  "ServerVersion": "*",
+  "Authors": [
+    {
+      "Name": "Trae"
+    }
+  ],
+  "Dependencies": {
+    "Trae:Core": "*"
+  }
+}
