@@ -7,6 +7,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import io.github.trae.di.annotations.type.component.Component;
 import io.github.trae.hytale.framework.system.data.EventSystemContext;
 import io.github.trae.hytale.framework.utility.UtilMessage;
+import me.trae.core.utility.enums.BlockOreType;
 import me.trae.progression.progression.progressions.Progression;
 import me.trae.progression.progression.progressions.ProgressionSkill;
 
@@ -62,7 +63,29 @@ public class MiningProgression implements Progression<EventSystemContext<EntityS
     }
 
     private int getExperienceForBlock(final BlockType blockType) {
-        return 10;
+        return BlockOreType.getByName(blockType.getId()).map(blockOreType -> {
+            final String name = blockOreType.name();
+
+            if (name.startsWith("COPPER")) {
+                return 5;
+            } else if (name.startsWith("IRON")) {
+                return 10;
+            } else if (name.startsWith("GOLD")) {
+                return 20;
+            } else if (name.endsWith("THORIUM")) {
+                return 30;
+            } else if (name.endsWith("COBALT")) {
+                return 40;
+            } else if (name.endsWith("SILVER")) {
+                return 55;
+            } else if (name.endsWith("ADAMANTITE")) {
+                return 75;
+            } else if (name.endsWith("MITHRIL")) {
+                return 100;
+            } else {
+                return 0;
+            }
+        }).orElse(0);
     }
 
     @Component
