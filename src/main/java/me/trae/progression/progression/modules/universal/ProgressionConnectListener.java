@@ -4,13 +4,12 @@ import com.hypixel.hytale.server.core.event.events.player.PlayerConnectEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import io.github.trae.di.annotations.type.component.Component;
 import io.github.trae.hf.Module;
+import io.github.trae.hytale.framework.event.EventListener;
 import io.github.trae.hytale.framework.event.annotations.EventHandler;
 import io.github.trae.hytale.framework.event.constants.EventPriority;
 import io.github.trae.hytale.framework.utility.UtilMessage;
 import me.trae.progression.ProgressionPlugin;
 import me.trae.progression.progression.ProgressionManager;
-
-import java.util.EventListener;
 
 @Component
 public class ProgressionConnectListener implements Module<ProgressionPlugin, ProgressionManager>, EventListener {
