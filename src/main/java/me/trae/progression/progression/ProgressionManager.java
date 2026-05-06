@@ -101,7 +101,7 @@ public class ProgressionManager implements Manager<ProgressionPlugin>, IProgress
                     Message.raw("Level %s → %s".formatted(previousLevel, progressionStatus.getLevel())).color(ChatColor.GOLD.getColor())
             );
 
-            UtilMessage.message(playerRef, progression.getProgressionName(), "Level up! <green>%s</green> → <green>%s</green>".formatted(previousLevel, progressionStatus.getLevel()));
+            UtilMessage.message(playerRef, progression.getProgressionName(), "Level up! <green>%s</green> to <green>%s</green>".formatted(previousLevel, progressionStatus.getLevel()));
         } else {
             UtilEvent.dispatch(new ProgressionGainExperienceEvent(progression, playerRef, amount));
 
