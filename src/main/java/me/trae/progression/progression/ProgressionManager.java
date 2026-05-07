@@ -101,7 +101,7 @@ public class ProgressionManager implements Manager<ProgressionPlugin>, IProgress
             NotificationUtil.sendNotification(
                     playerRef.getPacketHandler(),
                     Message.raw("%s Level Up!".formatted(progression.getProgressionName())).color(ChatColor.GREEN.getColor()),
-                    Message.raw("Level %s → %s".formatted(previousLevel, progressionStatus.getLevel())).color(ChatColor.GOLD.getColor())
+                    Message.raw("Level %s to %s".formatted(previousLevel, progressionStatus.getLevel())).color(ChatColor.GOLD.getColor())
             );
 
             UtilMessage.message(playerRef, progression.getProgressionName(), "Level up! <green>%s</green> to <green>%s</green>".formatted(previousLevel, progressionStatus.getLevel()));
