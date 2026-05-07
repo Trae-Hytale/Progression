@@ -13,6 +13,7 @@ import io.github.trae.di.annotations.type.component.Component;
 import io.github.trae.hytale.framework.system.data.EventSystemContext;
 import io.github.trae.hytale.framework.utility.UtilMessage;
 import me.trae.core.utility.enums.BlockOreType;
+import me.trae.progression.progression.data.ProgressionStatus;
 import me.trae.progression.progression.progressions.Progression;
 import me.trae.progression.progression.progressions.ProgressionSkill;
 
@@ -139,7 +140,16 @@ public class MiningProgression implements Progression<EventSystemContext<EntityS
         }
 
         @Override
-        public void onSystem(final PlayerRef playerRef, final EventSystemContext<EntityStore, BreakBlockEvent> context) {
+        public void onUnlock(final PlayerRef playerRef) {
+            UtilMessage.message(playerRef, this.getModule().getProgressionName(), "You have unlocked <gold>%s</gold> for hitting level <green>%s</green>!".formatted(this.getSkillName(), this.getRequiredLevel()));
+        }
+
+        @Override
+        public void onSystem(final PlayerRef playerRef, final ProgressionStatus progressionStatus, final EventSystemContext<EntityStore, BreakBlockEvent> context) {
+            if (!(progressionStatus.hasLevel(this.getRequiredLevel()))) {
+                return;
+            }
+
             final BreakBlockEvent event = context.getEvent();
 
             final BlockType blockType = event.getBlockType();

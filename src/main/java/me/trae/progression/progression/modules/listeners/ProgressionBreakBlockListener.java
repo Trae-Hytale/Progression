@@ -30,7 +30,7 @@ public class ProgressionBreakBlockListener implements Module<ProgressionPlugin, 
     public ProgressionBreakBlockListener(final List<Progression<EventSystemContext<EntityStore, BreakBlockEvent>>> progressionList, final List<ProgressionSkill<Progression<EventSystemContext<EntityStore, BreakBlockEvent>>, EventSystemContext<EntityStore, BreakBlockEvent>>> progressionSkillList) {
         this.progressionList = progressionList;
         this.progressionSkillMap = Collections.unmodifiableMap(UtilJava.createMap(new HashMap<>(), map -> {
-            for (final ProgressionSkill<?, EventSystemContext<EntityStore, BreakBlockEvent>> progressionSkill : progressionSkillList) {
+            for (final ProgressionSkill<?, EventSystemContext<EntityStore, BreakBlockEvent>> progressionSkill : progressionSkillList.stream().sorted(Comparator.comparingInt((ProgressionSkill<?, EventSystemContext<EntityStore, BreakBlockEvent>> skill) -> skill.getRequiredLevel()).reversed()).toList()) {
                 map.computeIfAbsent(progressionSkill.getModule(), __ -> new ArrayList<>()).add(progressionSkill);
             }
         }));
@@ -60,12 +60,16 @@ public class ProgressionBreakBlockListener implements Module<ProgressionPlugin, 
             progression.onSystem(playerRef, context);
 
             progressionDataOptional.flatMap(progressionData -> progressionData.getProgressionStatus(progression)).ifPresent(progressionStatus -> {
+                final Set<Class<?>> incompatibleSkills = new HashSet<>();
+
                 for (final ProgressionSkill<?, EventSystemContext<EntityStore, BreakBlockEvent>> progressionSkill : this.progressionSkillMap.getOrDefault(progression, Collections.emptyList())) {
-                    if (progressionStatus.getLevel() < progressionSkill.getRequiredLevel()) {
+                    if (incompatibleSkills.contains(progressionSkill.getClass())) {
                         continue;
                     }
 
-                    progressionSkill.onSystem(playerRef, context);
+                    progressionSkill.onSystem(playerRef, progressionStatus, context);
+
+                    incompatibleSkills.addAll(progressionSkill.getIncompatibleSkills());
                 }
             });
         }

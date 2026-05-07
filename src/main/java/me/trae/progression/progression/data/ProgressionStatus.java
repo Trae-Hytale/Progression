@@ -5,6 +5,7 @@ import io.github.trae.database.domain.models.SubDomain;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import me.trae.progression.progression.data.interfaces.IProgressionStatus;
 import me.trae.progression.progression.data.properties.ProgressionStatusProperty;
 import me.trae.progression.progression.progressions.Progression;
 
@@ -13,7 +14,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class ProgressionStatus implements SubDomain<ProgressionStatusProperty> {
+public class ProgressionStatus implements SubDomain<ProgressionStatusProperty>, IProgressionStatus {
 
     private final UUID id;
 
@@ -45,5 +46,10 @@ public class ProgressionStatus implements SubDomain<ProgressionStatusProperty> {
             case CREATED_AT -> this.getCreatedAt();
             case LAST_UPDATED_AT -> this.getLastUpdatedAt();
         };
+    }
+
+    @Override
+    public boolean hasLevel(final int level) {
+        return this.getLevel() >= level;
     }
 }
