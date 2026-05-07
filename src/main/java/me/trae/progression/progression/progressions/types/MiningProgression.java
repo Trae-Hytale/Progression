@@ -141,7 +141,6 @@ public class MiningProgression implements Progression<EventSystemContext<EntityS
 
         @Override
         public void onUnlock(final PlayerRef playerRef) {
-            UtilMessage.message(playerRef, this.getModule().getProgressionName(), "You have unlocked <gold>%s</gold> for hitting level <green>%s</green>!".formatted(this.getSkillName(), this.getRequiredLevel()));
         }
 
         @Override

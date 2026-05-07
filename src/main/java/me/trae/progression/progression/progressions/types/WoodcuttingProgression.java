@@ -4,6 +4,7 @@ import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import io.github.trae.hytale.framework.system.data.EventSystemContext;
+import me.trae.progression.progression.data.ProgressionStatus;
 import me.trae.progression.progression.progressions.Progression;
 import me.trae.progression.progression.progressions.ProgressionSkill;
 
@@ -70,8 +71,12 @@ public class WoodcuttingProgression implements Progression<EventSystemContext<En
         }
 
         @Override
-        public void onSystem(final PlayerRef playerRef, final EventSystemContext<EntityStore, BreakBlockEvent> context) {
-            ProgressionSkill.super.onSystem(playerRef, context);
+        public void onUnlock(final PlayerRef playerRef) {
+        }
+
+        @Override
+        public void onSystem(final PlayerRef playerRef, final ProgressionStatus progressionStatus, final EventSystemContext<EntityStore, BreakBlockEvent> context) {
+            ProgressionSkill.super.onSystem(playerRef, progressionStatus, context);
         }
     }
 }
