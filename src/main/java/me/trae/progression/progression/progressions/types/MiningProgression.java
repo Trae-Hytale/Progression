@@ -39,10 +39,6 @@ public class MiningProgression implements Progression<EventSystemContext<EntityS
     }
 
     @Override
-    public void onLevelUp(final PlayerRef playerRef, final int level) {
-    }
-
-    @Override
     public int getMaxLevel() {
         return 100;
     }
@@ -137,10 +133,6 @@ public class MiningProgression implements Progression<EventSystemContext<EntityS
         @Override
         public int getRequiredLevel() {
             return 5;
-        }
-
-        @Override
-        public void onUnlock(final PlayerRef playerRef) {
         }
 
         @Override

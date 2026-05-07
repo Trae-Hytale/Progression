@@ -29,10 +29,6 @@ public class WoodcuttingProgression implements Progression<EventSystemContext<En
     }
 
     @Override
-    public void onLevelUp(final PlayerRef playerRef, final int level) {
-    }
-
-    @Override
     public int getMaxLevel() {
         return 100;
     }
@@ -52,7 +48,7 @@ public class WoodcuttingProgression implements Progression<EventSystemContext<En
         Progression.super.onSystem(playerRef, context);
     }
 
-    //    @Component
+    //@Component
     private static class LumberjackSkill implements ProgressionSkill<WoodcuttingProgression, EventSystemContext<EntityStore, BreakBlockEvent>> {
 
         @Override
@@ -68,10 +64,6 @@ public class WoodcuttingProgression implements Progression<EventSystemContext<En
         @Override
         public int getRequiredLevel() {
             return 5;
-        }
-
-        @Override
-        public void onUnlock(final PlayerRef playerRef) {
         }
 
         @Override

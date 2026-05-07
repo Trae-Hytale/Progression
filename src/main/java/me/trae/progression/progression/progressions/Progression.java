@@ -15,8 +15,6 @@ public interface Progression<T> extends Module<ProgressionPlugin, ProgressionMan
 
     Color getColor();
 
-    void onLevelUp(final PlayerRef playerRef, final int level);
-
     int getMaxLevel();
 
     double getBaseExperience();
@@ -25,6 +23,9 @@ public interface Progression<T> extends Module<ProgressionPlugin, ProgressionMan
 
     default int getRequiredExperience(final int level) {
         return (int) (this.getBaseExperience() * Math.pow(level, this.getExponent()));
+    }
+
+    default void onLevelUp(final PlayerRef playerRef, final int level) {
     }
 
     default void onSystem(final PlayerRef playerRef, final T t) {

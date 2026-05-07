@@ -96,8 +96,6 @@ public class ProgressionManager implements Manager<ProgressionPlugin>, IProgress
         progressionStatus.setLastUpdatedAt(System.currentTimeMillis());
 
         if (progressionStatus.getLevel() > previousLevel) {
-            UtilEvent.dispatch(new ProgressionLevelUpEvent(progression, playerRef, previousLevel, progressionStatus.getLevel()));
-
             NotificationUtil.sendNotification(
                     playerRef.getPacketHandler(),
                     Message.raw("%s Level Up!".formatted(progression.getProgressionName())).color(ChatColor.GREEN.getColor()),
@@ -105,6 +103,10 @@ public class ProgressionManager implements Manager<ProgressionPlugin>, IProgress
             );
 
             UtilMessage.message(playerRef, progression.getProgressionName(), "Level up! <green>%s</green> to <green>%s</green>".formatted(previousLevel, progressionStatus.getLevel()));
+
+            for (int level = previousLevel + 1; level <= progressionStatus.getLevel(); level++) {
+                UtilEvent.dispatch(new ProgressionLevelUpEvent(progression, playerRef, level - 1, level));
+            }
         } else {
             UtilEvent.dispatch(new ProgressionGainExperienceEvent(progression, playerRef, amount));
 

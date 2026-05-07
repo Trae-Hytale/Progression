@@ -16,7 +16,8 @@ public interface ProgressionSkill<Type extends Progression<T>, T> extends SubMod
 
     int getRequiredLevel();
 
-    void onUnlock(final PlayerRef playerRef);
+    default void onUnlock(final PlayerRef playerRef) {
+    }
 
     default List<Class<? extends ProgressionSkill<?, ?>>> getIncompatibleSkills() {
         return Collections.emptyList();

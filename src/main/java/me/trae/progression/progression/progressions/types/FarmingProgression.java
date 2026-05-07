@@ -29,10 +29,6 @@ public class FarmingProgression implements Progression<EventSystemContext<Entity
     }
 
     @Override
-    public void onLevelUp(final PlayerRef playerRef, final int level) {
-    }
-
-    @Override
     public int getMaxLevel() {
         return 100;
     }
@@ -52,7 +48,7 @@ public class FarmingProgression implements Progression<EventSystemContext<Entity
         Progression.super.onSystem(playerRef, context);
     }
 
-    //    @Component
+    //@Component
     private static class HarvestSkill implements ProgressionSkill<FarmingProgression, EventSystemContext<EntityStore, BreakBlockEvent>> {
 
         @Override
@@ -68,10 +64,6 @@ public class FarmingProgression implements Progression<EventSystemContext<Entity
         @Override
         public int getRequiredLevel() {
             return 5;
-        }
-
-        @Override
-        public void onUnlock(final PlayerRef playerRef) {
         }
 
         @Override
