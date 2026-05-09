@@ -12,6 +12,5 @@ public class ProgressionGainExperienceEvent extends CustomEvent {
 
     private final Progression<?> progression;
     private final PlayerRef playerRef;
-
-    private int amount;
+    private final int amount;
 }

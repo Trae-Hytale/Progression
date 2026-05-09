@@ -93,6 +93,10 @@ public class ProgressionManager implements Manager<ProgressionPlugin>, IProgress
             progression.onLevelUp(playerRef, progressionStatus.getLevel());
         }
 
+        if (progressionStatus.getLevel() >= progression.getMaxLevel()) {
+            progressionStatus.setExperience(0);
+        }
+
         progressionStatus.setLastUpdatedAt(System.currentTimeMillis());
 
         if (progressionStatus.getLevel() > previousLevel) {

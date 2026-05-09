@@ -12,12 +12,13 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import io.github.trae.di.annotations.type.component.Component;
 import io.github.trae.hytale.framework.system.data.EventSystemContext;
 import io.github.trae.hytale.framework.utility.UtilMessage;
-import me.trae.core.utility.enums.BlockOreType;
+import me.trae.core.utility.enums.OreType;
 import me.trae.progression.progression.data.ProgressionStatus;
 import me.trae.progression.progression.progressions.Progression;
 import me.trae.progression.progression.progressions.ProgressionSkill;
 
 import java.awt.*;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -66,55 +67,16 @@ public class MiningProgression implements Progression<EventSystemContext<EntityS
     }
 
     private int getExperienceForBlock(final BlockType blockType) {
-        return BlockOreType.getById(blockType.getId()).map(blockOreType -> {
-            final String name = blockOreType.name();
-
-            if (name.startsWith("COPPER")) {
-                return 5;
-            } else if (name.startsWith("IRON")) {
-                return 10;
-            } else if (name.startsWith("GOLD")) {
-                return 20;
-            } else if (name.startsWith("THORIUM")) {
-                return 30;
-            } else if (name.startsWith("COBALT")) {
-                return 40;
-            } else if (name.startsWith("SILVER")) {
-                return 55;
-            } else if (name.startsWith("ADAMANTITE")) {
-                return 75;
-            } else if (name.startsWith("MITHRIL")) {
-                return 100;
-            } else {
-                return 0;
-            }
+        return OreType.getById(blockType.getId()).map(oreType -> switch (oreType) {
+            case COPPER -> 5;
+            case IRON -> 10;
+            case GOLD -> 20;
+            case THORIUM -> 30;
+            case COBALT -> 40;
+            case SILVER -> 55;
+            case ADAMANTITE -> 75;
+            case MITHRIL -> 100;
         }).orElse(0);
-    }
-
-    private BlockOreType getDroppedBlockByBlockType(final BlockType blockType) {
-        return BlockOreType.getById(blockType.getId()).map(blockOreType -> {
-            final String name = blockOreType.name();
-
-            if (name.startsWith("COPPER")) {
-                return BlockOreType.COPPER;
-            } else if (name.startsWith("IRON")) {
-                return BlockOreType.IRON;
-            } else if (name.startsWith("GOLD")) {
-                return BlockOreType.GOLD;
-            } else if (name.startsWith("THORIUM")) {
-                return BlockOreType.THORIUM;
-            } else if (name.startsWith("COBALT")) {
-                return BlockOreType.COBALT;
-            } else if (name.startsWith("SILVER")) {
-                return BlockOreType.SILVER;
-            } else if (name.startsWith("ADAMANTITE")) {
-                return BlockOreType.ADAMANTITE;
-            } else if (name.startsWith("MITHRIL")) {
-                return BlockOreType.MITHRIL;
-            } else {
-                return null;
-            }
-        }).orElse(null);
     }
 
     @Component
@@ -145,8 +107,8 @@ public class MiningProgression implements Progression<EventSystemContext<EntityS
 
             final BlockType blockType = event.getBlockType();
 
-            final BlockOreType droppedBlock = this.getModule().getDroppedBlockByBlockType(blockType);
-            if (droppedBlock == null) {
+            final Optional<OreType> oreTypeOptional = OreType.getById(blockType.getId());
+            if (oreTypeOptional.isEmpty()) {
                 return;
             }
 
@@ -154,7 +116,7 @@ public class MiningProgression implements Progression<EventSystemContext<EntityS
                 return;
             }
 
-            final Holder<EntityStore> itemEntityStoreHolder = ItemComponent.generateItemDrop(context.getStore(), new ItemStack(droppedBlock.getId()), event.getTargetBlock().toVector3d(), Vector3f.ZERO, 0.0F, 0.5F, 0.0F);
+            final Holder<EntityStore> itemEntityStoreHolder = ItemComponent.generateItemDrop(context.getStore(), new ItemStack(oreTypeOptional.get().getDroppedBlockTypeId()), event.getTargetBlock().toVector3d(), Vector3f.ZERO, 0.0F, 0.5F, 0.0F);
 
             if (itemEntityStoreHolder != null) {
                 context.getCommandBuffer().addEntity(itemEntityStoreHolder, AddReason.SPAWN);

@@ -12,6 +12,5 @@ public class ProgressionLevelUpEvent extends CustomEvent {
 
     private final Progression<?> progression;
     private final PlayerRef playerRef;
-
     private final int previousLevel, level;
 }

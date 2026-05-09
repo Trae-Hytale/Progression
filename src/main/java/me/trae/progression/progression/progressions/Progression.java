@@ -2,6 +2,7 @@ package me.trae.progression.progression.progressions;
 
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import io.github.trae.hf.Module;
+import io.github.trae.hytale.framework.utility.UtilColor;
 import me.trae.progression.ProgressionPlugin;
 import me.trae.progression.progression.ProgressionManager;
 
@@ -14,6 +15,10 @@ public interface Progression<T> extends Module<ProgressionPlugin, ProgressionMan
     String getProgressionName();
 
     Color getColor();
+
+    default String getProgressionDisplayName() {
+        return UtilColor.serialize(this.getColor(), this.getProgressionName());
+    }
 
     int getMaxLevel();
 
