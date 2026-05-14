@@ -40,6 +40,10 @@ public class ProgressionBreakBlockListener implements Module<ProgressionPlugin, 
     public void onBreakBlock(final EventSystemContext<EntityStore, BreakBlockEvent> context) {
         final BreakBlockEvent event = context.getEvent();
 
+        if (event.isCancelled()) {
+            return;
+        }
+
         final BlockType blockType = event.getBlockType();
         if (blockType == BlockType.EMPTY) {
             return;
