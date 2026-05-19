@@ -1,4 +1,4 @@
-package me.trae.progression.progression.modules.universal;
+package me.trae.progression.progression.listeners.universal;
 
 import com.hypixel.hytale.server.core.event.events.player.PlayerDisconnectEvent;
 import com.hypixel.hytale.server.core.universe.PlayerRef;

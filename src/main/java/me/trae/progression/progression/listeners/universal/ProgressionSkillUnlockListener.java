@@ -1,4 +1,4 @@
-package me.trae.progression.progression.modules.universal;
+package me.trae.progression.progression.listeners.universal;
 
 import io.github.trae.di.annotations.type.component.Component;
 import io.github.trae.hf.Module;

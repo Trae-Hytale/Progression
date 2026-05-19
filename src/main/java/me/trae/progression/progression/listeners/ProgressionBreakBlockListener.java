@@ -1,4 +1,4 @@
-package me.trae.progression.progression.modules.listeners;
+package me.trae.progression.progression.listeners;
 
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
