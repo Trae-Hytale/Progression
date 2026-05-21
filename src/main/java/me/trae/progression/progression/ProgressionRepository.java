@@ -10,6 +10,8 @@ public class ProgressionRepository extends AbstractRepository<ProgressionData, P
 
     public ProgressionRepository(final DatabaseDriver databaseDriver) {
         super(databaseDriver);
+
+        this.setLoaded(true);
     }
 
     @Override
