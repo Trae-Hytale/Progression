@@ -2,7 +2,7 @@ package me.trae.progression.progression.progressions.types;
 
 import com.hypixel.hytale.component.AddReason;
 import com.hypixel.hytale.component.Holder;
-import com.hypixel.hytale.math.vector.Vector3f;
+import com.hypixel.hytale.math.vector.Rotation3f;
 import com.hypixel.hytale.server.core.asset.type.blocktype.config.BlockType;
 import com.hypixel.hytale.server.core.event.events.ecs.BreakBlockEvent;
 import com.hypixel.hytale.server.core.inventory.ItemStack;
@@ -12,6 +12,7 @@ import com.hypixel.hytale.server.core.universe.world.storage.EntityStore;
 import io.github.trae.di.annotations.type.component.Component;
 import io.github.trae.hytale.framework.system.data.EventSystemContext;
 import io.github.trae.hytale.framework.utility.UtilMessage;
+import io.github.trae.hytale.framework.wrappers.BlockLocation;
 import me.trae.core.utility.enums.OreType;
 import me.trae.progression.progression.data.ProgressionStatus;
 import me.trae.progression.progression.progressions.Progression;
@@ -116,7 +117,9 @@ public class MiningProgression implements Progression<EventSystemContext<EntityS
                 return;
             }
 
-            final Holder<EntityStore> itemEntityStoreHolder = ItemComponent.generateItemDrop(context.getStore(), new ItemStack(oreTypeOptional.get().getDroppedBlockTypeId()), event.getTargetBlock().toVector3d(), Vector3f.ZERO, 0.0F, 0.5F, 0.0F);
+            final BlockLocation blockLocation = BlockLocation.of(context.getStore().getExternalData().getWorld(), event.getTargetBlock());
+
+            final Holder<EntityStore> itemEntityStoreHolder = ItemComponent.generateItemDrop(context.getStore(), new ItemStack(oreTypeOptional.get().getDroppedBlockTypeId()), blockLocation.getPosition3d(), Rotation3f.ZERO, 0.0F, 0.5F, 0.0F);
 
             if (itemEntityStoreHolder != null) {
                 context.getCommandBuffer().addEntity(itemEntityStoreHolder, AddReason.SPAWN);
