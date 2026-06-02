@@ -2,15 +2,15 @@ package me.trae.progression.progression.commands;
 
 import com.hypixel.hytale.server.core.universe.PlayerRef;
 import io.github.trae.di.annotations.type.component.Component;
-import io.github.trae.hytale.framework.command.PlayerCommand;
 import io.github.trae.hytale.framework.utility.UtilMessage;
 import me.trae.core.client.enums.Rank;
+import me.trae.core.command.Command;
 import me.trae.progression.ProgressionPlugin;
 import me.trae.progression.progression.ProgressionData;
 import me.trae.progression.progression.ProgressionManager;
 
 @Component
-public class ProgressionCommand extends PlayerCommand<ProgressionPlugin, ProgressionManager> {
+public class ProgressionCommand extends Command<ProgressionPlugin, ProgressionManager, PlayerRef> {
 
     public ProgressionCommand() {
         super("progression", "Progression reset", Rank.OWNER);
