@@ -13,7 +13,7 @@ import me.trae.progression.progression.ProgressionManager;
 public class ProgressionCommand extends Command<ProgressionPlugin, ProgressionManager, PlayerRef> {
 
     public ProgressionCommand() {
-        super("progression", "Progression reset", Rank.OWNER);
+        super("progression", "Progression management", Rank.OWNER);
     }
 
     @Override
