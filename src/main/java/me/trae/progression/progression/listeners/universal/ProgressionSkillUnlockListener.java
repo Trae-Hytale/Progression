@@ -13,7 +13,11 @@ import me.trae.progression.progression.events.ProgressionLevelUpEvent;
 import me.trae.progression.progression.progressions.Progression;
 import me.trae.progression.progression.progressions.ProgressionSkill;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class ProgressionSkillUnlockListener implements Module<ProgressionPlugin, ProgressionManager>, EventListener {

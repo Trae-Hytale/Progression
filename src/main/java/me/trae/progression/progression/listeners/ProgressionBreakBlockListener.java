@@ -18,7 +18,15 @@ import me.trae.progression.progression.ProgressionManager;
 import me.trae.progression.progression.progressions.Progression;
 import me.trae.progression.progression.progressions.ProgressionSkill;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 
 @DependsOn(values = Progression.class)
 @Component
