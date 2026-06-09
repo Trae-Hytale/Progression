@@ -39,7 +39,7 @@ public class ProgressionBreakBlockListener implements Module<ProgressionPlugin, 
         this.progressionList = progressionList;
         this.progressionSkillMap = Collections.unmodifiableMap(UtilJava.createMap(new HashMap<>(), map -> {
             for (final ProgressionSkill<?, EventSystemContext<EntityStore, BreakBlockEvent>> progressionSkill : progressionSkillList.stream().sorted(Comparator.comparingInt((ProgressionSkill<?, EventSystemContext<EntityStore, BreakBlockEvent>> skill) -> skill.getRequiredLevel()).reversed()).toList()) {
-                map.computeIfAbsent(progressionSkill.getModule(), __ -> new ArrayList<>()).add(progressionSkill);
+                map.computeIfAbsent(progressionSkill.getModule(), _ -> new ArrayList<>()).add(progressionSkill);
             }
         }));
     }

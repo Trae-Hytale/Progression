@@ -27,7 +27,7 @@ public class ProgressionSkillUnlockListener implements Module<ProgressionPlugin,
     public ProgressionSkillUnlockListener(final List<ProgressionSkill<?, ?>> progressionSkillList) {
         this.progressionSkillMap = Collections.unmodifiableMap(UtilJava.createMap(new HashMap<>(), map -> {
             for (final ProgressionSkill<?, ?> progressionSkill : progressionSkillList) {
-                map.computeIfAbsent(progressionSkill.getModule(), __ -> new ArrayList<>()).add(progressionSkill);
+                map.computeIfAbsent(progressionSkill.getModule(), _ -> new ArrayList<>()).add(progressionSkill);
             }
         }));
     }
